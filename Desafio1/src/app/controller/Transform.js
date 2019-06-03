@@ -7,7 +7,7 @@ router.use(auth);
 
 router.post('/', async (req, res) => {
 	try {
-		const value = await transform.create(req.body);
+		const value = await Transform.create(req.body);
 		return res.status(200).send({ value });
 	} catch (err) {
 		res.status(400).send({ erro: 'Erro ao Salvar os dados! ', err });
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 	if (!data) res.status(404).send('Nenhuma informação encontrada.');
 	res.status(200).send(data);
 });
-router.get('/description/:description', async (req, res) => {
+router.get('/:description', async (req, res) => {
 	const { description } = req.params;
 	const data = tl('/archive/Desafio1.txt');
 	let valor = [];

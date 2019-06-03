@@ -1,5 +1,6 @@
 const fs = require('fs');
 const csvToJson = require('convert-csv-to-json');
+const Transform = require('./app/model/Transform');
 
 Array.prototype.remove = function() {
 	let what,
@@ -41,6 +42,13 @@ function validarArquivo(arquivo) {
 }
 module.exports = function comporJson(arquivo) {
 	let fileInputName = validarArquivo(arquivo);
-	let json = csvToJson.fieldDelimiter(' ').formatValueByType().getJsonFromCsv(fileInputName);
+	let json = csvToJson.fieldDelimiter(' ').getJsonFromCsv(fileInputName);
+	json.forEach(async (value, key) => {
+		try {
+			await Transform.create(value);
+		} catch (err) {
+			console.log({ erro: 'Erro ao Salvar os dados! ', err });
+		}
+	});
 	return json;
 };

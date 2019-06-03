@@ -9,7 +9,7 @@ const TransformSchema = new mongoose.Schema({
 		type: String
 	},
 	openingBalance: {
-		type: Number
+		type: String
 	},
 	debit: {
 		type: Number
